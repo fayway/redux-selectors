@@ -1,0 +1,22 @@
+{
+  "name": "reselect",
+  "version": "1.0.0",
+  "description": "reselect demo",
+  "main": "src/main.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --profile --inline --progress"
+  },
+  "dependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "css-loader": "^0.28.4",
+    "hack": "^0.8.0",
+    "ractive": "^0.9.2",
+    "redux": "^3.7.2",
+    "reselect": "^3.0.1",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.5.1"
+  }
+}
