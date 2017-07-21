@@ -1,14 +1,23 @@
 import Ractive from 'ractive';
 import store from '../store/index'
 import { createDecrementAction, createIncrementAction } from './actions'
+import { createSelector } from 'reselect'
 
 export default Ractive.extend({
   data: {
     count: 0
   },
   oninit() {
+
+    const myStuffSelector = createSelector(
+      [state => state.module2],
+      (counter) => {
+        this.set('count', counter.count);
+      }
+    );
+
     store.subscribe(()=>{
-      this.set('count', store.getState().module2);
+      myStuffSelector(store.getState());
     });
   },
   inc(){

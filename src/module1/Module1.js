@@ -1,6 +1,6 @@
 import Ractive from 'ractive';
 import store from '../store/index'
-import {createAddAction} from './actions'
+import { createAddAction } from './actions'
 import { createSelector } from 'reselect'
 
 export default Ractive.extend({
@@ -10,16 +10,29 @@ export default Ractive.extend({
     }
   },
   oninit() {
+
+    const myStuff = (module) => {
+      this.set('users', module.users);
+      if (module.lastUser) {
+        this.set('lastUserName', module.lastUser.name);
+      }
+    };
+
+    const myStuffSelector = createSelector(
+      [state => state.module1],
+      myStuff
+    );
+
     store.subscribe(()=>{
-      this.set('users', store.getState().module1.users);
-      this.set('lastUserName', store.getState().module1.lastUser.name);
+      myStuffSelector(store.getState());
     });
   },
   addUser(){
     const { name, country} = this.get()
     if (name && country) {
       createAddAction({name, country});
-      this.set({name: '', country: ''});
+      this.set({name: ''});
+      this.find('#name').focus();
     }
   },
   template: `
@@ -37,7 +50,7 @@ export default Ractive.extend({
                 <fieldset class="form-group">
                   <label for="country">Country:</label>
                   <select id="country" value="{{country}}" class="form-control">
-                    <option>France</option>
+                    <option selected>France</option>
                     <option>U.S.</option>
                     <option>U.K.</option>
                     <option>Japan</option>
@@ -56,7 +69,7 @@ export default Ractive.extend({
                 <li>{{name}} from {{country}}</li>
                 {{/each}}
               </ul>
-              <div>(<i>Last username: {{lastUserName}}</i>)</div>
+              {{#if lastUserName}}<div>(<i>Last username: {{lastUserName}}</i>)</div>{{/if}}
             </div>
           </div>
         </div>

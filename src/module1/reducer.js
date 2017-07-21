@@ -8,10 +8,11 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD:
-      return Object.assign({}, {
+      return {
+        ...state,
         users: [...state.users, action.payload.user],
         lastUser: action.payload.user
-      });
+      };
     case RESET:
       return {};
     default:
