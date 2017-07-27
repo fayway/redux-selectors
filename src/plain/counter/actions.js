@@ -1,7 +1,7 @@
 import store from '../store/index';
 
-export const INCREMENT = 'Module2/INCREMENT';
-export const DECREMENT = 'Module2/DECREMENT';
+export const INCREMENT = 'Counter/INCREMENT';
+export const DECREMENT = 'Counter/DECREMENT';
 
 
 export const createIncrementAction = () => {

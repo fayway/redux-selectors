@@ -10,7 +10,7 @@ export default Ractive.extend({
   oninit() {
 
     const myStuffSelector = createSelector(
-      [state => state.module2],
+      [state => state.counter],
       (counter) => {
         this.set('count', counter.count);
       }
@@ -29,7 +29,7 @@ export default Ractive.extend({
   template: `
     <div class="cell module">
       <div class="card">
-        <header class="card-header">Module 2</header>
+        <header class="card-header">Module Counter</header>
         <div class="card-content">
           <div class="inner">
             <div>

@@ -1,7 +1,7 @@
 import store from '../store/index';
 
-export const ADD = 'Module1/ADD';
-export const RESET = 'Module1/RESET';
+export const ADD = 'Booking/ADD';
+export const RESET = 'Booking/RESET';
 
 
 export const createAddAction = (user) => {

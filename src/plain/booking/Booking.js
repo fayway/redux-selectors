@@ -1,4 +1,5 @@
 import Ractive from 'ractive';
+import axios from 'axios'
 import store from '../store/index'
 import { createAddAction } from './actions'
 import { createSelector } from 'reselect'
@@ -11,20 +12,16 @@ export default Ractive.extend({
   },
   oninit() {
 
-    const myStuff = (module) => {
-      this.set('users', module.users);
-      if (module.lastUser) {
-        this.set('lastUserName', module.lastUser.name);
+    const myStuff = (booking) => {
+      this.set('users', booking.users);
+      if (booking.lastUser) {
+        this.set('lastUserName', booking.lastUser.name);
+        this.reportBooking(booking.lastUser)
       }
     };
 
-    const myStuffSelector = createSelector(
-      [state => state.module1],
-      myStuff
-    );
-
     store.subscribe(()=>{
-      myStuffSelector(store.getState());
+      myStuff(store.getState().booking)
     });
   },
   addUser(){
@@ -35,10 +32,20 @@ export default Ractive.extend({
       this.find('#name').focus();
     }
   },
+  reportBooking(user) {
+    axios.get('http://www.fakeresponse.com/api/', {
+      params: {
+        data: user
+      }
+    })
+    .then(response => {
+      console.log('API Request result:', response);
+    });
+  },
   template: `
     <div class="cell module">
       <div class="card">
-        <header class="card-header">Module 1</header>
+        <header class="card-header">Module Booking</header>
         <div class="card-content">
           <div class="inner">
             <div>
