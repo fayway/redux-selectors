@@ -10,13 +10,14 @@ export default Ractive.extend({
   oninit() {
     console.log('Step 1 Init');
 
-    store.subscribe(() => {
+    this.unsubscribe = store.subscribe(() => {
       console.log('Receiving a store notification', store.getState());
       this.set('count', store.getState().counter.count);
     });
   },
   onteardown() {
     console.log('Step 1 Teardown');
+    this.unsubscribe();
   },
   template: `
     <div class="card">
