@@ -7,6 +7,7 @@ module.exports = () => {
     entry: {
       reselect: './src/reselect/main.js',
       plain: './src/plain/main.js',
+      memory: './src/memory/main.js',
       vendor: './src/vendor.js'
     },
     output: {
@@ -31,13 +32,12 @@ module.exports = () => {
     },
     plugins: [
       new webpack.optimize.CommonsChunkPlugin({
-        name: ['reselect', 'plain', 'vendor']
+        name: ['reselect', 'plain', 'memory', 'vendor']
       }),
       new ExtractTextPlugin('style.css'),
     ],
     devServer: {
-      contentBase: path.resolve(__dirname, './'),
-      overlay: true
+      contentBase: path.resolve(__dirname, './')
     }
   };
 };
